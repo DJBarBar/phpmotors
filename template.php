@@ -62,11 +62,7 @@
                 <img src="../phpmotors/images/upgrades/hub-cap.jpg" alt="hub caps">
                 <p>Hub Caps</p>
             </div>    
-        </div> 
-
-                
-        
-                
+        </div>       
             <div class="box-e">
                 <h4>DMC Delorean Review</h4>
                 <p>"So fast its just like traveling in time."(4/5)</p>
