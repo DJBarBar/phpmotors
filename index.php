@@ -34,6 +34,3 @@ switch ($action){
 
 // var_dump($classifications);
 //     exit;
-
-    ?>
-    
