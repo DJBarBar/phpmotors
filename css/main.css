@@ -72,6 +72,23 @@ form,
   color: red;
   padding-left: 15px;
 }
+
+.paddingleftright {
+  padding: 0% 15px;
+}
+
+.margintopbottom {
+  margin: 15px 0%;
+}
+
+form {
+  margin: 15px 0%;
+}
+
+select {
+  margin: 15px 0%;
+}
+
 /* My account link on header */
 #account {
   text-decoration: none;

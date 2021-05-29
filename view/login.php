@@ -13,7 +13,7 @@
 <body>
     <header>
         <img src="../images/site/logo.png" alt="PHP Motors Logo">
-        <a id="account" href="/phpmotors/accounts/?action=deliverLoginView">My Account</a>
+        <a id="account" href="/phpmotors/accounts/?action=Login">My Account</a>
     </header>
     <nav>
 
@@ -40,14 +40,13 @@
                     <input type="submit" name="Submit" value="Login">
                 </div>
             </form>
-            <a id='notamember' href="/phpmotors/accounts/?action=deliverRegisterView">Not a member yet?</a>
+            <a id='notamember' href="/phpmotors/accounts/?action=newmember">Not a member yet?</a>
         </section>
     </main>
     <footer>
         <hr>
         <p>&copy; PHP Motors. All rights reserved.
             <br>All images used are believed to be in "Fair Use". Please notify the author if any are not and they will be removed
-            <br>Last Updated: 15 May, 2021
         </p>
     </footer>
 </body>

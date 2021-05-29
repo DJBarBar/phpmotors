@@ -12,19 +12,28 @@
 
 <body>
     <header>
-        <img src="../images/site/logo.png" alt="PHP Motors Logo">
+        <img src="images/site/logo.png" alt="PHP Motors Logo">
         <a id="account" href="/phpmotors/accounts/?action=Login">My Account</a>
     </header>
     <nav>
+        <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
+        ?>
         <?php echo $navList; ?>
     </nav>
     <main>
         <section class="paddingleftright">
-            <h1>Vehicle Management</h1>
-            <ul>
-                <li><a class="block" href="/phpmotors/vehicles/?action=addclassification">Add Classification</a></li>
-                <li><a class="block" href="/phpmotors/vehicles/?action=addvehicle">Add Vehicle</a></li>
-            </ul>
+            <h1>Add Car Classification</h1>
+            <?php
+            if (isset($message)) {
+                echo $message;
+            }
+            ?>
+            <form action="/phpmotors/vehicles/" method="post">
+                <label for="classificationName">Classification Name</label>
+                <input type="text" name="classificationName" id="classificationName" placeholder="Enter Name Here" autofocus autocomplete="off">
+                <input type="submit" name="Submit" value="Add Classification">
+                <input type="hidden" name="action" value="addClassification">
+            </form>
         </section>
     </main>
     <footer>
