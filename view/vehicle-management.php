@@ -12,8 +12,11 @@
 
 <body>
     <header>
-        <img src="../images/site/logo.png" alt="PHP Motors Logo">
-        <a id="account" href="/phpmotors/accounts/?action=Login">My Account</a>
+        <img src="/phpmotors/images/site/logo.png" alt="PHP Motors Logo">
+        <?php if (isset($cookieFirstname)) {
+            echo "<span>Welcome, $cookieFirstname</span>";
+        } ?>
+        <a id="account" href="/phpmotors/accounts/?action=login">My Account</a>
     </header>
     <nav>
         <?php echo $navList; ?>

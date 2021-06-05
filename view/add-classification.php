@@ -12,8 +12,11 @@
 
 <body>
     <header>
-        <img src="images/site/logo.png" alt="PHP Motors Logo">
-        <a id="account" href="/phpmotors/accounts/?action=Login">My Account</a>
+        <img src="/phpmotors/images/site/logo.png" alt="PHP Motors Logo">
+        <?php if (isset($cookieFirstname)) {
+            echo "<span>Welcome, $cookieFirstname</span>";
+        } ?>
+        <a id="account" href="/phpmotors/accounts/?action=login">My Account</a>
     </header>
     <nav>
         <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
@@ -30,7 +33,7 @@
             ?>
             <form action="/phpmotors/vehicles/" method="post">
                 <label for="classificationName">Classification Name</label>
-                <input type="text" name="classificationName" id="classificationName" placeholder="Enter Name Here" autofocus autocomplete="off">
+                <input type="text" name="classificationName" id="classificationName" placeholder="Enter Name Here" autofocus autocomplete="off" required>
                 <input type="submit" name="Submit" value="Add Classification">
                 <input type="hidden" name="action" value="addClassification">
             </form>

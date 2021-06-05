@@ -6,6 +6,15 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+}
+
+header span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0px 15px;
+  margin-bottom: -12px;
 }
 
 header div {
@@ -89,6 +98,9 @@ select {
   margin: 15px 0%;
 }
 
+#regbtn {
+  margin-top: 15px;
+}
 /* My account link on header */
 #account {
   text-decoration: none;
@@ -125,7 +137,7 @@ select {
 }
 
 #landing-page p {
-  color: #2b7abf;
+  color: #4c97d8;
   margin-left: 15px;
 }
 
@@ -142,7 +154,7 @@ select {
   right: 0;
   text-align: center;
   width: 150px;
-  color: #292929;
+  color: #3a3a3a;
   font-weight: 600;
   text-decoration: none;
   border-top: 5px solid transparent;
@@ -226,6 +238,14 @@ nav ul li {
     flex-direction: row-reverse;
     justify-content: space-around;
     align-items: flex-start;
+  }
+
+  header {
+    position: static;
+  }
+
+  header span {
+    position: static;
   }
 }
 /* Media query for large screen */

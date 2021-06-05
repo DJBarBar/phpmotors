@@ -12,8 +12,11 @@
 
 <body>
     <header>
-        <img src="../images/site/logo.png" alt="PHP Motors Logo">
-        <a id="account" href="/phpmotors/accounts/?action=Login">My Account</a>
+        <img src="/phpmotors/images/site/logo.png" alt="PHP Motors Logo">
+        <?php if (isset($cookieFirstname)) {
+            echo "<span>Welcome, $cookieFirstname</span>";
+        } ?>
+        <a id="account" href="/phpmotors/accounts/?action=login">My Account</a>
     </header>
     <nav>
 
@@ -30,20 +33,26 @@
                 <h1>Register</h1>
                 <div>
                     <label for="clientFirstname">First Name</label>
-                    <input type="text" name="clientFirstname" id="clientFirstname" placeholder="Your First Name" autofocus autocomplete="off">
+                    <input type="text" name="clientFirstname" id="clientFirstname" placeholder="Your First Name" autofocus autocomplete="off" <?php if (isset($clientFirstname)) {
+                                                                                                                                                    echo "value='$clientFirstname'";
+                                                                                                                                                } ?> required>
                 </div>
                 <div>
-                    <label for="clientLastname">Last Name</label>
-                    <input type="text" name="clientLastname" id="clientLastname" placeholder="Your Last Name" autocomplete="off">
+                    <label for=" clientLastname">Last Name</label>
+                    <input type="text" name="clientLastname" id="clientLastname" placeholder="Your Last Name" autocomplete="off" <?php if (isset($clientLastname)) {
+                                                                                                                                        echo "value='$clientLastname'";
+                                                                                                                                    } ?> required>
                 </div>
                 <div>
                     <label for="clientEmail">Email</label>
-                    <input type="email" name="clientEmail" id="clientEmail" placeholder="Your Email" autocomplete="off">
+                    <input type="email" name="clientEmail" id="clientEmail" placeholder="Your Email" autocomplete="off" <?php if (isset($clientEmail)) {
+                                                                                                                            echo "value='$clientEmail'";
+                                                                                                                        } ?> required>
                 </div>
                 <div>
                     <label for="clientPassword">Password</label>
-                    <input type="password" name="clientPassword" id="clientPassword" placeholder="Your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="off">
-                    <p><strong>Password must contain at least 1 number, 1 uppercase, 1 lowercase letter, and at least 8 or more characters</strong></p>
+                    <input type="password" name="clientPassword" id="clientPassword" placeholder="Your Password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="off" required>
+                    <span>*Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
                 </div>
                 <div>
                     <input type="submit" name="submit" id="regbtn" value="Register">
