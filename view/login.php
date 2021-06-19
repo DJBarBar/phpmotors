@@ -12,14 +12,11 @@
 
 <body>
     <header>
-        <img src="/phpmotors/images/site/logo.png" alt="PHP Motors Logo">
-        <?php if (isset($cookieFirstname)) {
-            echo "<span>Welcome, $cookieFirstname</span>";
-        } ?>
-        <a id="account" href="/phpmotors/accounts/?action=login">My Account</a>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
     </header>
     <nav>
-
+        <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
+        ?>
         <?php echo $navList; ?>
     </nav>
     <main>
@@ -51,10 +48,7 @@
         </section>
     </main>
     <footer>
-        <hr>
-        <p>&copy; PHP Motors. All rights reserved.
-            <br>All images used are believed to be in "Fair Use". Please notify the author if any are not and they will be removed
-        </p>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
     </footer>
 </body>
 

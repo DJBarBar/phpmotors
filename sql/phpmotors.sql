@@ -25,16 +25,16 @@ SET time_zone = "+00:00";
 --
 DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory` (
-  `invId` int UNSIGNED NOT NULL,
+  `invId` int(10) UNSIGNED NOT NULL,
   `invMake` varchar(30) NOT NULL,
   `invModel` varchar(30) NOT NULL,
-  `invDescription` text NOT NULL,
+  `invDescription` text DEFAULT NULL,
   `invImage` varchar(50) NOT NULL,
   `invThumbnail` varchar(50) NOT NULL,
   `invPrice` decimal(10, 0) NOT NULL,
-  `invStock` smallint NOT NULL,
+  `invStock` smallint(6) NOT NULL,
   `invColor` varchar(20) NOT NULL,
-  `classificationId` int NOT NULL
+  `classificationId` int(10) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 --
 -- Dumping data for table `inventory`
@@ -241,14 +241,14 @@ ADD PRIMARY KEY (`invId`),
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-MODIFY `invId` int NOT NULL AUTO_INCREMENT,
+MODIFY `invId` int(10) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 16;
 --
 -- Table structure for table `carclassification`
 --
 DROP TABLE IF EXISTS `carclassification`;
 CREATE TABLE `carclassification` (
-  `classificationId` int NOT NULL,
+  `classificationId` int(10) NOT NULL,
   `classificationName` varchar(30) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 --
@@ -269,7 +269,7 @@ ADD PRIMARY KEY (`classificationId`);
 -- AUTO_INCREMENT for table `carclassification`
 --
 ALTER TABLE `carclassification`
-MODIFY `classificationId` int NOT NULL AUTO_INCREMENT,
+MODIFY `classificationId` int(10) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 7;
 --
 -- Constraints for table `inventory`
@@ -282,7 +282,7 @@ COMMIT;
 --
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE `clients` (
-  `clientId` int UNSIGNED NOT NULL,
+  `clientId` int(10) UNSIGNED NOT NULL,
   `clientFirstname` varchar(15) NOT NULL,
   `clientLastname` varchar(25) NOT NULL,
   `clientEmail` varchar(40) NOT NULL,
@@ -299,7 +299,7 @@ ADD PRIMARY KEY (`clientId`);
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-MODIFY `clientId` int UNSIGNED NOT NULL AUTO_INCREMENT,
+MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
 ;

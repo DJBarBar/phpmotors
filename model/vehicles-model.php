@@ -6,7 +6,8 @@
 
 
 // Check if class already exist
-function checkClassification($classificationName){
+function checkClassification($classificationName)
+{
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
@@ -28,7 +29,8 @@ function checkClassification($classificationName){
 }
 
 // Insert a new classification
-function addClassification($classificationName){
+function addClassification($classificationName)
+{
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
@@ -50,7 +52,8 @@ function addClassification($classificationName){
 }
 
 // Insert a new car
-function addCar($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId){
+function addCar($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId)
+{
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement

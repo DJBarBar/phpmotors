@@ -29,22 +29,22 @@ $navList = buildNavigation($classifications);
 // exit;
 
 $action = filter_input(INPUT_POST, 'action');
-if ($action == NULL) {
+ if ($action == NULL){
   $action = filter_input(INPUT_GET, 'action');
 }
 
 // Check if the firstname cookie exists, get its value
-if (isset($_COOKIE['firstname'])) {
-  $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+if(isset($_COOKIE['firstname'])){
+    $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
 }
 
 // Switch case to redirect to home.php
-switch ($action) {
-  case 'template':
-    include 'view/template.php';
+switch ($action){
+    case 'template':
+        include 'view/template.php';
     break;
 
-  default:
-    include 'view/home.php';
+    default:
+        include 'view/home.php';
     break;
-}
+   }
