@@ -68,7 +68,12 @@ input {
   display: block;
 }
 
-input {
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
   margin-bottom: 15px;
 }
 
@@ -82,8 +87,17 @@ form,
   padding-left: 15px;
 }
 
+#success {
+  color: green;
+  padding-left: 15px;
+}
+
 .paddingleftright {
   padding: 0% 15px;
+}
+
+.marginleftright {
+  margin: 0% 15px;
 }
 
 .margintopbottom {
@@ -204,6 +218,14 @@ nav ul li {
 
 .padding500 {
   padding: 0 10px;
+}
+
+#classificationList {
+  margin: 15px 15px;
+}
+
+#inventoryDisplay {
+  margin: 15px 15px;
 }
 
 /* Blue button on landing page */

@@ -1,3 +1,11 @@
+<?php
+
+if ($_SESSION['clientData']['clientLevel'] < 2) {
+    header('location: /phpmotors/');
+    exit;
+}
+
+?>
 <!doctype html>
 <html lang="en">
 

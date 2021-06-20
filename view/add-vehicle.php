@@ -1,20 +1,27 @@
 <?php
-//Build a dropdown menu
-$dropdown = '<select name="classificationId" id="classificationId">';
-$dropdown .= "<option value='' disabled hidden selected>Choose Car Classification</option>";
-foreach ($classifications as $classification) {
-    $dropdown .= "<option value='" . urlencode($classification['classificationId']) . "'";
-    if (isset($classificationId)) {
-        if ($classification['classificationId'] === $classificationId) {
-            $dropdown .= ' selected ';
-        }
-    }
 
-    $dropdown .= ">$classification[classificationName]</option>";
+if ($_SESSION['clientData']['clientLevel'] < 2) {
+    header('location: /phpmotors/');
+    exit;
 }
-$dropdown .= '</select>';
 
-?>
+?><?php
+    //Build a dropdown menu
+    $dropdown = '<select name="classificationId" id="classificationId">';
+    $dropdown .= "<option value='' disabled hidden selected>Choose Car Classification</option>";
+    foreach ($classifications as $classification) {
+        $dropdown .= "<option value='" . urlencode($classification['classificationId']) . "'";
+        if (isset($classificationId)) {
+            if ($classification['classificationId'] === $classificationId) {
+                $dropdown .= ' selected ';
+            }
+        }
+
+        $dropdown .= ">$classification[classificationName]</option>";
+    }
+    $dropdown .= '</select>';
+
+    ?>
 <!doctype html>
 <html lang="en">
 
