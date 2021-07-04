@@ -1,88 +1,82 @@
 <?php
-
-if ($_SESSION['clientData']['clientLevel'] < 2) {
-    header('location: /phpmotors/');
-    exit;
+//If Not seesion login or Client level > 1, redirect to home
+if (!(isset($_SESSION['loggedin']) && ($_SESSION['clientData']['clientLevel'] > '1'))) {
+    header('Location: /phpmotors/index.php');
 }
+?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/header.php'; ?>
 
-?><?php
-    // Build the classifications option list
-    $dropdown = '<select name="classificationId" id="classificationId">';
-    $dropdown .= "<option>Choose a Car Classification</option>";
-    foreach ($classifications as $classification) {
-        $dropdown .= "<option value='$classification[classificationId]'";
-        if (isset($classificationId)) {
-            if ($classification['classificationId'] === $classificationId) {
-                $dropdown .= ' selected ';
-            }
-        } elseif (isset($invInfo['classificationId'])) {
-            if ($classification['classificationId'] === $invInfo['classificationId']) {
-                $dropdown .= ' selected ';
-            }
+
+<?php
+$classificationList = '<select id="classification_id" name="classificationId">';
+$classificationList .= "<option>Choose a Car Classification</option>";
+foreach ($classifications as $classification) {
+    $classificationList .= "<option value='$classification[classificationId]'";
+    if (isset($classificationId)) {
+        if ($classification['classificationId'] === $classificationId) {
+            $classificationList .= ' selected ';
         }
-        $dropdown .= ">$classification[classificationName]</option>";
+    } elseif (isset($invInfo['classificationId'])) {
+        if ($classification['classificationId'] === $invInfo['classificationId']) {
+            $classificationList .= ' selected ';
+        }
     }
-    $dropdown .= '</select>';
+    $classificationList .= ">$classification[classificationName]</option>";
+}
+$classificationList .= '</select>';
+?><div class="add-vehi">
 
+    <h1><?php if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
+            echo "Delete $invInfo[invMake] $invInfo[invModel]";
+        } ?></h1>
+
+    <p>Confirm Vehicle Deletion. The delete is permanent.</p>
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo '<p class="infoMessage">';
+        echo $_SESSION['message'];
+        echo '</p>';
+    }
     ?>
-<!doctype html>
-<html lang="en">
+    <form action="/phpmotors/vehicles/index.php" method="POST">
+        <?php
+        //print_r($invInfo);
+        //exit;
+        if (isset($classificationList)) {
+            echo $classificationList;
+        }
+        ?><br><br>
+        <label for="inv_make">Make</label><br>
+        <input type="text" id="inv_make" name="invMake" <?php
+                                                        if (isset($invInfo['invMake'])) {
+                                                            echo "value='$invInfo[invMake]'";
+                                                        }
+                                                        ?>readonly><br>
+        <label for="inv_model">Model</label><br>
+        <input type="text" id="inv_model" name="invModel" <?php
+                                                            if (isset($invInfo['invModel'])) {
+                                                                echo "value='$invInfo[invModel]'";
+                                                            }
+                                                            ?>readonly><br>
+        <label for="invDescription">Description</label><br>
+        <textarea readonly name="invDescription" id="invDescription"> <?php
+                                                                        if (isset($invInfo['invDescription'])) {
+                                                                            echo $invInfo['invDescription'];
+                                                                        }
+                                                                        ?>
+                                                            </textarea><br>
 
-<head>
-    <title><?php if (isset($invInfo['invMake'])) {
-                echo "Delete $invInfo[invMake] $invInfo[invModel]";
-            } ?> | PHP Motors</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/phpmotors/css/normalize.css" media="screen">
-    <link rel="stylesheet" href="/phpmotors/css/main.css" media="screen">
-    <link href="https://fonts.googleapis.com/css?family=Quantico&display=swap" rel="stylesheet" media="screen">
-</head>
+        <input type="submit" name="submit" value="Delete Vehicle">
+        <!-- Add the action name - value pair -->
+        <input type="hidden" name="action" value="deleteVehicle">
+        <!-- Add the Inventary ID - value pair -->
+        <input type="hidden" name="invId" value=<?php
+                                                if (isset($invInfo['invId'])) {
+                                                    echo $invInfo['invId'];
+                                                } ?>>
+    </form>
 
-<body>
-    <header>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    </header>
-    <nav>
-        <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
-        ?>
-        <?php echo $navList; ?>
-    </nav>
-    <main>
-        <section class="paddingleftright">
-            <h1><?php if (isset($invInfo['invMake'])) {
-                    echo "Delete $invInfo[invMake] $invInfo[invModel]";
-                } ?> | PHP Motors</h1>
-            <?php
-            if (isset($message)) {
-                echo $message;
-            }
-            ?>
+</div>
 
-            <form action="/phpmotors/vehicles/" method="post">
-                <label for="invMake">Make</label>
-                <input type="text" name="invMake" id="invMake" readonly <?php if (isset($invInfo['invMake'])) {
-                                                                            echo "value='$invInfo[invMake]'";
-                                                                        } ?>>
-                <label for="invModel">Model</label>
-                <input type="text" name="invModel" id="invModel" readonly <?php if (isset($invInfo['invModel'])) {
-                                                                                echo "value='$invInfo[invModel]'";
-                                                                            } ?>>
-                <label for="invDescription">Description</label>
-                <textarea type="text" name="invDescription" id="invDescription" readonly><?php if (isset($invInfo['invDescription'])) {
-                                                                                                echo $invInfo['invDescription'];
-                                                                                            } ?></textarea>
-                <input type="submit" name="Submit" value="Delete Vehicle">
-                <input type="hidden" name="action" value="deleteVehicle">
-                <input type="hidden" name="invId" value='<?php if (isset($invInfo['invId'])) {
-                                                                echo $invInfo['invId'];
-                                                            } ?>'>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
-    </footer>
-</body>
-
-</html>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
+<?php unset($_SESSION['message']); ?>

@@ -1,68 +1,45 @@
 <?php
+//If Not seesion login, redirect to home
 if (!$_SESSION['loggedin']) {
-    header('Location: /phpmotors/');
+    header('Location: /phpmotors/index.php');
 }
-
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
 }
-
-$clientFirstname = $_SESSION['clientData']['clientFirstname'];
-$clientLastname = $_SESSION['clientData']['clientLastname'];
-$clientEmail = $_SESSION['clientData']['clientEmail'];
-$clientLevel = $_SESSION['clientData']['clientLevel'];
-
 ?>
-<!doctype html>
-<html lang="en">
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/header.php'; ?>
 
-<head>
-    <title>PHP Motors</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/phpmotors/css/normalize.css" media="screen">
-    <link rel="stylesheet" href="/phpmotors/css/main.css" media="screen">
-    <link href="https://fonts.googleapis.com/css?family=Quantico&display=swap" rel="stylesheet" media="screen">
-</head>
+<?php
+if (isset($_SESSION['loggedin'])) {
 
-<body>
-    <header>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    </header>
-    <nav>
-        <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
-        ?>
-        <?php echo $navList; ?>
-    </nav>
-    <main>
-        <section class="paddingleftright">
-            <h1><?php echo "$clientFirstname $clientLastname"; ?></h1>
-            <?php if (isset($message)) {
-                echo $message;
-            } ?>
-            <p>You are logged in.</p>
-            <ul>
-                <li>First Name: <?php echo $clientFirstname; ?></li>
-                <li>Last Name: <?php echo $clientLastname; ?></li>
-                <li>Email: <?php echo $clientEmail; ?></li>
-            </ul>
-            <?php
-            if ($_SESSION['loggedin']) {
-                echo '<h2>Account Management</h2>';
-                echo '<p>Use this link to update account information</p>';
-                echo '<p><a href="/phpmotors/accounts/?action=updateaccount" title="Update your account information">Update Account Information</a></p>';
-            }
-            if ($clientLevel > 1) {
-                echo '<h2>Inventory Management</h2>';
-                echo '<p>Use this link to manage the inventory</p>';
-                echo '<p><a href="/phpmotors/vehicles/" title="Link to Vehicle Management">Vehicle Management</a></p>';
-            }
-            ?>
-        </section>
-    </main>
-    <footer>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
-    </footer>
-</body>
+    echo '<h1> ' . $_SESSION['clientData']['clientFirstname'] . $_SESSION['clientData']['clientLastname'] . '</h1>';
 
-</html>
+    echo '<p>You are logged in.</p>';
+    if (isset($message)) {
+        echo '<p class="infoMessage">';
+        echo $message;
+        echo '</p>';
+    }
+    echo '<ul><li>First name: ' .  $_SESSION['clientData']['clientFirstname'] . '</li>';
+    echo '<li>Last name: ' .  $_SESSION['clientData']['clientLastname'] . '</li>';
+    echo '<li>Email: ' .  $_SESSION['clientData']['clientEmail'] . '</li></ul>';
+    //echo '<li>Client Level: ' .  $_SESSION['clientData']['clientLevel'] . '</li></ul>';
+?>
+    <h2>Account Management</h2>
+    <p>Use this link to update account information.</p>
+    <a href="/phpmotors/accounts/?action=mod_user">Update Account Information</a><br><br>
+
+
+<?php
+    if ($_SESSION['clientData']['clientLevel'] > '1') {
+        echo '<h2>Inventory Management</h2>';
+        echo '<p>Use this link to manage the inventory.</p>';
+        echo '<a href="/phpmotors/vehicles/?action=default">Vehicle Management</a><br><br>';
+    }
+} else {
+    header('Location: /phpmotors/index.php');
+}
+?>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
+<?php unset($_SESSION['message']); ?>

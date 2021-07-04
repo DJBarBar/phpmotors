@@ -1,100 +1,96 @@
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/header.php'; ?>
+
 <?php
-
-if ($_SESSION['clientData']['clientLevel'] < 2) {
-    header('location: /phpmotors/');
-    exit;
+//If Not seesion login or Client level > 1, redirect to home
+if (!(isset($_SESSION['loggedin']) && ($_SESSION['clientData']['clientLevel'] > '1'))) {
+    header('Location: ../index.php');
 }
+?>
 
-?><?php
-    //Build a dropdown menu
-    $dropdown = '<select name="classificationId" id="classificationId">';
-    $dropdown .= "<option value='' disabled hidden selected>Choose Car Classification</option>";
-    foreach ($classifications as $classification) {
-        $dropdown .= "<option value='" . urlencode($classification['classificationId']) . "'";
-        if (isset($classificationId)) {
-            if ($classification['classificationId'] === $classificationId) {
-                $dropdown .= ' selected ';
-            }
+<?php
+$classificationList = '<select id="classification_id" name="classificationId">';
+foreach ($classifications as $classification) {
+    $classificationList .= "<option value='$classification[classificationId]'";
+    if (isset($classificationId)) {
+        if ($classification['classificationId'] === $classificationId) {
+            $classificationList .= ' selected ';
         }
-
-        $dropdown .= ">$classification[classificationName]</option>";
     }
-    $dropdown .= '</select>';
+    $classificationList .= ">$classification[classificationName]</option>";
+}
+$classificationList .= '</select>';
+?><div class="add-vehi">
 
+    <h1>Add Vehicle</h1>
+    <p>* Note all the Fields are Required</p>
+    <?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+    }
     ?>
-<!doctype html>
-<html lang="en">
 
-<head>
-    <title>PHP Motors</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/phpmotors/css/normalize.css" media="screen">
-    <link rel="stylesheet" href="/phpmotors/css/main.css" media="screen">
-    <link href="https://fonts.googleapis.com/css?family=Quantico&display=swap" rel="stylesheet" media="screen">
-</head>
 
-<body>
-    <header>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    </header>
-    <nav>
-        <?php // include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
-        ?>
-        <?php echo $navList; ?>
-    </nav>
-    <main>
-        <section class="paddingleftright">
-            <h1>Add Vehicle</h1>
-            <div class="margintopbottom"><strong>*Note all fields are required</strong></div>
-            <?php
-            if (isset($message)) {
-                echo $message;
-            }
-            ?>
+    <form action="/phpmotors/vehicles/index.php" method="POST">
+        <?php
+        if (isset($classificationList)) {
+            echo $classificationList;
+        }
+        ?><br><br>
+        <label for="inv_make">Make</label><br>
+        <input type="text" id="inv_make" name="invMake" <?php
+                                                        if (isset($invMake)) {
+                                                            echo "value='$invMake'";
+                                                        }
+                                                        ?> required><br>
+        <label for="inv_model">Model</label><br>
+        <input type="text" id="inv_model" name="invModel" <?php
+                                                            if (isset($invModel)) {
+                                                                echo "value='$invModel'";
+                                                            }
+                                                            ?> required><br>
+        <label for="inv_description">Description</label><br>
+        <input type="text" id="inv_description" name="invDescription" <?php
+                                                                        if (isset($invDescription)) {
+                                                                            echo "value='$invDescription'";
+                                                                        }
+                                                                        ?> required><br>
+        <label for="inv_image">Image Path</label><br>
+        <input type="text" id="inv_image" name="invImage" <?php
+                                                            if (isset($invImage)) {
+                                                                echo "value='$invImage'";
+                                                            }
+                                                            ?> required><br>
+        <label for="inv_thumbnail">Thumbnail Path</label><br>
+        <input type="text" id="inv_thumbnail" name="invThumbnail" <?php
+                                                                    if (isset($invThumbnail)) {
+                                                                        echo "value='$invThumbnail'";
+                                                                    }
+                                                                    ?> required><br>
+        <label for="inv_price">Price</label><br>
+        <input type="text" id="inv_price" name="invPrice" <?php
+                                                            if (isset($invPrice)) {
+                                                                echo "value='$invPrice'";
+                                                            }
+                                                            ?> required><br>
+        <label for="inv_stock"># In Stock</label><br>
+        <input type="text" id="inv_stock" name="invStock" <?php
+                                                            if (isset($invStock)) {
+                                                                echo "value='$invStock'";
+                                                            }
+                                                            ?> required><br>
+        <label for="inv_color">Color</label><br>
+        <input type="text" id="inv_color" name="invColor" <?php
+                                                            if (isset($invColor)) {
+                                                                echo "value='$invColor'";
+                                                            }
+                                                            ?> required><br>
 
-            <form action="/phpmotors/vehicles/" method="post">
-                <?php
-                if (isset($dropdown)) {
-                    echo $dropdown;
-                }
-                ?>
-                <label for="invMake">Make</label>
-                <input type="text" name="invMake" id="invMake" placeholder="Enter Car Maker" autofocus autocomplete="off" <?php if (isset($invMake)) {
-                                                                                                                                echo "value='$invMake'";
-                                                                                                                            } ?> required>
-                <label for="invModel">Model</label>
-                <input type="text" name="invModel" id="invModel" placeholder="Enter Car's Model" autocomplete="off" <?php if (isset($invModel)) {
-                                                                                                                        echo "value='$invModel'";
-                                                                                                                    } ?> required>
-                <label for="invDescription">Description</label>
-                <textarea type="text" name="invDescription" id="invDescription" placeholder="Enter description" autocomplete="off" required><?php if (isset($invDescription)) {
-                                                                                                                                                echo "$invDescription";
-                                                                                                                                            } ?></textarea>
-                <label for="invImage">Image path</label>
-                <input type="text" name="invImage" id="invImage" placeholder="Enter image path" autocomplete="off" value="/phpmotors/images/no-image.png" required>
-                <label for="invThumbnail">Thumbnail path</label>
-                <input type="text" name="invThumbnail" id="invThumbnail" placeholder="Enter thumbnail path" autocomplete="off" value="/phpmotors/images/no-image.png" required>
-                <label for="invPrice">Price</label>
-                <input type="number" step="0.01" name="invPrice" id="invPrice" placeholder="Enter car's price" autocomplete="off" <?php if (isset($invPrice)) {
-                                                                                                                                        echo "value='$invPrice'";
-                                                                                                                                    } ?> required>
-                <label for="invStock"># in stock</label>
-                <input type="number" name="invStock" id="invStock" placeholder="Enter inventory" autocomplete="off" <?php if (isset($invStock)) {
-                                                                                                                        echo "value='$invStock'";
-                                                                                                                    } ?> required>
-                <label for="invColor">Color</label>
-                <input type="text" name="invColor" id="invColor" placeholder="Enter car's color" autocomplete="off" <?php if (isset($invColor)) {
-                                                                                                                        echo "value='$invColor'";
-                                                                                                                    } ?> required>
-                <input type="submit" name="Submit" value="Add Vehicle">
-                <input type="hidden" name="action" value="addVehicle">
-            </form>
-        </section>
-    </main>
-    <footer>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
-    </footer>
-</body>
+        <input type="submit" name="submit" value="Add Vehicle">
+        <!-- Add the action name - value pair -->
+        <input type="hidden" name="action" value="add_new_car">
+    </form>
 
-</html>
+</div>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
+<?php unset($_SESSION['message']); ?>

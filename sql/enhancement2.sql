@@ -1,38 +1,35 @@
-1.
-INSERT INTO `clients` (
-		`clientFirstname`,
-		`clientLastname`,
-		`clientEmail`,
-		`clientPassword`,
-		`clientLevel`,
-		`comment`
-	)
-VALUES (
+-- Query #1
+INSERT INTO clients (
+		clientFirstname,
+		clientLastname,
+		clientEmail,
+		clientPassword,
+		comment
+	) VALUE (
 		'Tony',
 		'Stark',
 		'tony@starkent.com',
 		'Iam1ronM@n',
-		'1',
-		'\"I am the real Ironman\"'
+		"I am the real Ironman"
 	);
-2.
-UPDATE `clients`
-SET `clientLevel` = '3'
-WHERE `clients`.`clientId` = 1;
-3.
+-- Query #2
+UPDATE clients
+SET clientLevel = 3
+WHERE clientLevel = 1;
+-- Query #3
 UPDATE inventory
-SET invDescription = REPLACE(invDescription, 'small', 'spacious')
-WHERE invId = 12;
-4.
+SET invDescription = 'Do you have 6 kids and like to go offroading? The Hummer gives you the spacious interior with an engine to get you out of any muddy or rocky situation.'
+WHERE invModel = 'Hummer';
+-- Query #4
 SELECT inventory.invModel,
 	carclassification.classificationName
-FROM carclassification
-	INNER JOIN inventory ON inventory.classificationId = carclassification.classificationId
-WHERE classificationName = 'SUV';
-5.
-DELETE FROM `inventory`
-WHERE `inventory`.`invId` = 1;
-6.
+FROM inventory
+	INNER JOIN carclassification ON inventory.classificationId = carclassification.classificationId
+WHERE carclassification.classificationName = "SUV";
+-- Query #5
+DELETE FROM inventory
+WHERE invMake = 'Jeep';
+-- Query #6
 UPDATE inventory
-SET invImage = concat('/phpmotors', invImage),
-	invThumbnail = concat('/phpmotors', invThumbnail);
+SET invImage = CONCAT('/phpmotors', invImage),
+	invThumbnail = CONCAT('/phpmotors', invThumbnail);
