@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=East+Sea+Dokdo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 /*General content window*/
 
 html {
@@ -43,6 +44,7 @@ button {
   background-color: #4c96d7;
   padding: 3px 15px 3px;
 }
+
 /*Header*/
 
 header {
@@ -71,6 +73,7 @@ header .account {
   text-decoration: none;
   display: block;
 }
+
 /*Navigation Bar*/
 
 .topnav {
@@ -125,6 +128,7 @@ li a:hover {
   background-color: #4c96d7;
   color: #000000;
 }
+
 /*Main section*/
 
 main {
@@ -188,12 +192,14 @@ table td img {
   margin-top: 30px;
   margin-left: 30px;
 }
+
 /* ---- NOTIFICATION MESSAGE ---- */
 
 .infoMessage {
   color: rgb(189, 39, 39);
   font-weight: 900;
 }
+
 /*Footer*/
 
 footer {
@@ -210,6 +216,7 @@ footer p {
   margin: 0;
   color: #3a3a3a;
 }
+
 /* Vehicle management*/
 
 .vehi-man,
@@ -240,6 +247,7 @@ footer p {
 .vehi-man ul {
   list-style-type: none;
 }
+
 /* ---- MANAGEMENT VEHICLE TABLE ---- */
 
 #inventoryDisplay td,
@@ -248,6 +256,7 @@ td {
   padding-bottom: 0px;
   text-align: left;
 }
+
 /* ---- VEHICLE DISPLAY CLASSIFICATION  ----*/
 
 #inv-display {
@@ -255,7 +264,6 @@ td {
   padding: 0;
   display: flex;
   flex-direction: column;
-  text-align: center;
 }
 
 #info-display ul {
@@ -272,10 +280,11 @@ td {
 #inv-display li img {
   max-width: 100%;
 }
+
 /* ---- VEHICLE DETAILED VIEW ---- */
 
 #info-display img {
-  width: 95%;
+  width: 100%;
   height: auto;
 }
 
@@ -296,45 +305,12 @@ h3 {
 }
 
 #info-display img {
-  width: 95%;
+  width: 100%;
   height: auto;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #info-display li:nth-child(even) {
   background-color: #f0ecec;
-}
-
-#info-display {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-#info-display .image_area {
-  grid-row: 1;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-#info-display .thumbnails_area {
-  grid-row: 2;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-#info-display .text_area {
-  grid-row: 3;
-}
-/* ---- THUMBNAILS IMAGES ---- */
-
-#info-display .thumbnails_area img {
-  max-width: 150px;
-  max-width: 150px;
-  vertical-align: middle;
-  margin: 3px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -351,17 +327,10 @@ h3 {
     border: 4px solid #4c96d7;
     border-radius: 8px;
   }
+  /* ---- VEHICLE DETAILED VIEW ---- */
 }
-/* ---- VEHICLE DETAILED VIEW ---- */
 
 @media only screen and (min-width: 768px) {
-  /* ---- HOME PAGE ---- */
-  .delorean_image img {
-    width: 90%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
   /* ---- VEHICLE DISPLAY CLASSIFICATION ---- */
   /* For vehicle display in classification view */
   #inv-display {
@@ -391,23 +360,20 @@ h3 {
     margin: 20px;
     text-align: center;
     display: grid;
-    grid-template-columns: 18% 80%;
-    grid-template-rows: 1fr 1fr;
-    column-gap: 20px;
-    padding: 30px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
   }
   #info-display .image_area {
     grid-row: 1;
-    grid-column: 2;
+    grid-column: 1;
   }
   #info-display .text_area {
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 2;
   }
   #info-display img {
     width: 100%;
     height: auto;
-    max-width: 499px;
     margin-top: 60px;
   }
   #info-display ul {
@@ -417,23 +383,6 @@ h3 {
   }
   #info-display li {
     color: #808080;
-    padding: 20px;
-  }
-  #info-display H3 {
-    color: #000000;
-    font-weight: bolder;
-    font-size: 1.2em;
-  }
-  /* ---- VEHICLE THUMBNAILS DETAILED VIEW ---- */
-  #info-display .thumbnails_area {
-    grid-row: 1/2;
-    grid-column: 1;
-    margin-top: 60px;
-  }
-  #info-display .thumbnails_area img {
-    margin: 3px;
-  }
-  #info-display .thumbnails_area img:hover {
-    transform: scale(2);
+    padding: 10px;
   }
 }

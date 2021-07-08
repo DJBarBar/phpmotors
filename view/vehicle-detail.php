@@ -12,11 +12,6 @@ if (isset($_SESSION['message'])) {
 if (isset($vehicleInfo)) {
     echo $vehicleInfo;
 }
-
-//Display vehicle thumbnails view
-if (isset($thumbnailsView)) {
-    echo $thumbnailsView;
-}
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?> 
