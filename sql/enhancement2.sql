@@ -1,35 +1,38 @@
--- Query #1
+-- Query 1 Insert Tony Stak to clients dataBase
 INSERT INTO clients (
 		clientFirstname,
 		clientLastname,
 		clientEmail,
 		clientPassword,
 		comment
-	) VALUE (
-		'Tony',
-		'Stark',
-		'tony@starkent.com',
-		'Iam1ronM@n',
+	)
+VALUES (
+		"Tony",
+		"Stark",
+		"tony@starkent.com",
+		"Iam1ronM@n",
 		"I am the real Ironman"
 	);
--- Query #2
+--Query 2 Modify Tony's clientLevel
 UPDATE clients
-SET clientLevel = 3
-WHERE clientLevel = 1;
--- Query #3
+SET clientLevel = 3;
+--Query 3 Modify GM Hummer  with Spacious interior
 UPDATE inventory
-SET invDescription = 'Do you have 6 kids and like to go offroading? The Hummer gives you the spacious interior with an engine to get you out of any muddy or rocky situation.'
-WHERE invModel = 'Hummer';
--- Query #4
+SET invDescription = replace(
+		invDescription,
+		"small interior",
+		"spacious interior"
+	)
+WHERE invModel = "Hummer";
+--Query 4 inner Join
 SELECT inventory.invModel,
 	carclassification.classificationName
 FROM inventory
 	INNER JOIN carclassification ON inventory.classificationId = carclassification.classificationId
-WHERE carclassification.classificationName = "SUV";
--- Query #5
+WHERE classificationName = "SUV";
+--Query 5 delete Jeep Wrangler
 DELETE FROM inventory
-WHERE invMake = 'Jeep';
--- Query #6
+WHERE invModel = "Wrangler";
+--Query 6 update all record to add /phpmotors to path in invImage
 UPDATE inventory
-SET invImage = CONCAT('/phpmotors', invImage),
-	invThumbnail = CONCAT('/phpmotors', invThumbnail);
+SET invImage = concat('/phpmotors', invImage) invThumbnail = concat('/phpmotors', invThumbnail);
