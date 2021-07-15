@@ -59,24 +59,23 @@ function  buildVehiclesDisplay($vehicles)
 // Build the Vehicle display view
 function buildVehicleDetail($vehicle)
 {
-   $dv = "<h1>" . $vehicle[0]['invMake'] . ' ' . $vehicle[0]['invModel'] . " Details </h1>";
+   $dv = "<h1>" . $vehicle['invMake'] . ' ' . $vehicle['invModel'] . " Details </h1>";
    $dv .= '<div id="info-display">';
 
-   foreach ($vehicle as $info) {
-      $dv .= '<div class="image_area">';
-      $dv .= "<img src='$info[imgPath]' alt='$info[invMake] $info[invModel] on phpmotors.com'>";
-      $dv .= '</div><div class="text_area">';
-      $dv .= "<h3>Price:   $" . number_format($info['invPrice']) . "</h3>";
-      $dv .= '<hr>';
-      $dv .= '<ul>';
-      $dv .= "<li><h3>$info[invMake] $info[invModel] Details</h3></li>";
-      $dv .= "<li> $info[invDescription] </li>";
-      $dv .= "<li> Color: $info[invColor] </li>";
-      $dv .= "<li> # in Stock: $info[invStock] </li>";
+   $dv .= '<div class="image_area">';
+   $dv .= "<img src='$vehicle[imgPath]' alt='$vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+   $dv .= '</div><div class="text_area">';
+   $dv .= "<h3>Price:   $" . number_format($vehicle['invPrice']) . "</h3>";
+   $dv .= '<hr>';
+   $dv .= '<ul>';
+   $dv .= "<li><h3>$vehicle[invMake] $vehicle[invModel] Details</h3></li>";
+   $dv .= "<li> $vehicle[invDescription] </li>";
+   $dv .= "<li> Color: $vehicle[invColor] </li>";
+   $dv .= "<li> # in Stock: $vehicle[invStock] </li>";
 
-      $dv .= '</ul>';
-      $dv .= '</div>';
-   }
+   $dv .= '</ul>';
+   $dv .= '</div>';
+
    return $dv;
 }
 
@@ -252,3 +251,74 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height)
    // Free any memory associated with the old image
    imagedestroy($old_image);
 } // ends resizeImage function
+
+/* ************************************************************
+*           Functions for Reviews
+   ************************************************************ */
+
+// Build Manage reviews view
+function getReviewDate($review)
+{
+   $reviewDate = date('d F, Y', strtotime($review['reviewDate']));
+   return $reviewDate;
+}
+
+// Get customer name based on client Id
+function getCustomerUsername($clientId)
+{
+   $user = getClientByID($clientId);
+   $username = substr(ucfirst($user['clientFirstname']), 0, 1) . ucfirst($user['clientLastname']);
+   return $username;
+}
+
+// Get VehicleName based on review
+function getVehicleNameByReview($review)
+{
+   $vehicle = getVehicleById($review['invId']);
+   $vehiclename = $vehicle['invMake'] . ' ' . $vehicle['invModel'];
+   return $vehiclename;
+}
+
+// Build Vehicle Review
+function  buildVehicleReviews($vehicleId)
+{
+   $reviews = getVehicleReviews($vehicleId);
+   $div = '<div class="reviews">';
+   if (empty($reviews) && isset($_SESSION['loggedin'])) {
+      $div .= '<p>Be the first to write a review.</p>';
+      // print_r($reviews);
+      // exit;
+   } else {
+      foreach ($reviews as $review) {
+         $username = getCustomerUsername($review['clientId']);
+         $reviewDate = getReviewDate($review);
+         $div .= '<div class="customer_review">';
+         $div .= '<label>' . $username .  ' wrote on ' . $reviewDate . ' : </label>';
+         $div .= '<p>' . $review['reviewText'] . '</p>';
+         $div .= '</div>';
+      }
+   }
+   $div .= '</div>';
+   return $div;
+}
+
+// Build  Customers' Reviews
+function builCustomerReviews($clientId)
+{
+   $reviews = getCustomerReviews($clientId);
+   // print_r($reviews);
+   // exit;
+   $div = '<div class="customer_reviews">';
+   $div .= '<ul>';
+   foreach ($reviews as $review) {
+      // $vehicle = getInvItemInfo($review['invId']);
+      // $vehiclename = $vehicle['invMake'] . ' ' . $vehicle['invModel'];
+      $vehiclename = getVehicleNameByReview($review);
+      $reviewDate = getReviewDate($review);
+      // $reviewDate = date('d F, Y',strtotime($review['reviewDate']) );
+      $div .= '<li>' . $vehiclename . ' (Reviewed on ' . $reviewDate . "): <a href='/phpmotors/reviews/?action=mod&reviewId=";
+      $div .= $review['reviewId'] . "'>Edit</a> | <a href='/phpmotors/reviews/?action=del&reviewId=" . $review['reviewId'] . "'>Delete</a>" . '</li>';
+   }
+   $div .= '</ul></div>';
+   return $div;
+}
